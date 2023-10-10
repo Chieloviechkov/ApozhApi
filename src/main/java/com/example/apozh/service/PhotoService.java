@@ -35,6 +35,7 @@ public class PhotoService {
 
     public List<Photo> scrapeAndSavePhotos() {
         FirefoxOptions options = new FirefoxOptions();
+        options.setHeadless(true);
         WebDriver driver = new FirefoxDriver(options);
         String url = "https://ksl.co.ua/team/1249800/photos";
         driver.get(url);
