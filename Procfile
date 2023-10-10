@@ -1,2 +1,2 @@
 web: java -jar target/java-getting-started-1.0.0-SNAPSHOT.jar
-java.runtime.version=17
+web: node server.js
