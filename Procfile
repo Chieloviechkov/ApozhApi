@@ -1,2 +1,2 @@
-web: java -jar actual-file-name.jar
+web: java -jar ApozhApplication.jar
 java.runtime.version=17
