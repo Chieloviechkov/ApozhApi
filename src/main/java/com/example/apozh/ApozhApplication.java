@@ -23,7 +23,7 @@ public class ApozhApplication {
     private final FootballerRepository footballerRepository;
     private final FootballerService footballerService;
     private final NextGamesTimeRepository nextGamesTimeRepository;
-    private final TeamService teamService;
+    private final TeamService  teamService;
     private final PhotoService photoService;
     public static void main(String[] args) {
         SpringApplication.run(ApozhApplication.class, args);
