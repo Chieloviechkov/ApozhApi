@@ -135,6 +135,25 @@ private final FootballerRepository footballerRepository;
         }
         updateMissedGoalsPerGame();
     }
+    public void updatePlayerStatisticsWithGames(String playerName,int matches, int goalsScored, int assists, int yellowCards, int redCards) {
+        String[] parts = playerName.split(" ");
+        String lastName = parts[1];
+        char initial = Character.toUpperCase(parts[0].charAt(0));
+
+        for (String player : playerStatisticsMap.keySet()) {
+            if (player.endsWith(lastName) && player.startsWith(String.valueOf(initial))) {
+                List<Number> playerStats = playerStatisticsMap.get(player);
+
+                playerStats.set(1, matches);
+                playerStats.set(2, goalsScored);
+                playerStats.set(3, assists);
+                playerStats.set(4, yellowCards);
+                playerStats.set(5, redCards);
+                savePlayerStatisticsToDatabase(player, playerStats);
+            }
+        }
+        updateMissedGoalsPerGame();
+    }
 
     private void savePlayerStatisticsToDatabase(String playerName, List<Number> playerStats) {
         String[] parts = playerName.split(" ");
@@ -157,7 +176,7 @@ private final FootballerRepository footballerRepository;
     }
 
 
-    public void deleteLastPlayerStatistics(String playerName, int goalsScored, int assists, int yellowCards, int redCards) {
+    public void deletePlayerStatistics(String playerName, int matches, int goalsScored, int assists, int yellowCards, int redCards) {
         String[] parts = playerName.split(" ");
         String lastName = parts[1];
         char initial = Character.toUpperCase(parts[0].charAt(0));
@@ -165,15 +184,11 @@ private final FootballerRepository footballerRepository;
         for (String player : playerStatisticsMap.keySet()) {
             if (player.endsWith(lastName) && player.startsWith(String.valueOf(initial))) {
                 List<Number> playerStats = playerStatisticsMap.get(player);
-                int currentGoals = (int) playerStats.get(2);
-                int currentAssists = (int) playerStats.get(3);
-                int currentYellowCards = (int) playerStats.get(4);
-                int currentRedCards = (int) playerStats.get(5);
-
-                playerStats.set(2, currentGoals - goalsScored);
-                playerStats.set(3, currentAssists - assists);
-                playerStats.set(4, currentYellowCards - yellowCards);
-                playerStats.set(5, currentRedCards - redCards);
+                playerStats.set(1, 0);
+                playerStats.set(2, 0);
+                playerStats.set(3, 0);
+                playerStats.set(4, 0);
+                playerStats.set(5, 0);
             }
         }
         updateMissedGoalsPerGame();

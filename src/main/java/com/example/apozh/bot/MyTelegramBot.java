@@ -3,7 +3,6 @@ package com.example.apozh.bot;
 import com.example.apozh.Repository.*;
 import com.example.apozh.entity.*;
 import com.example.apozh.service.FootballerService;
-import com.example.apozh.service.NextGamesTimeService;
 import com.example.apozh.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -15,7 +14,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,13 +88,22 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                     case "/deletelastgame":
                         deleteLastGameAndStatistics(chatId);
                         break;
-                    case "/deletelastupdatestatisticforplayer":
-                        sendTextMessage(chatId, "Для видалення статистики гравця треба ввести повідомлення в форматі - 'Перша буква імені Прізвище Голи Асисти ЖК ЧК'");
+                    case "/deletetatisticforplayer":
+                        sendTextMessage(chatId, "Для видалення статистики гравця треба ввести повідомлення в форматі - 'Перша буква імені Прізвище Матчі Голи Асисти ЖК ЧК'");
                         userStates.put(chatId, UserState.ENTER_FOOTBALLER_TO_DELETE);
                         break;
                     case "/loadmaincast":
                         sendTextMessage(chatId, "Введіть основний склад на матч в форматі 'Іван Савченко, Олександр Алімов'");
                         userStates.put(chatId, UserState.ENTER_MAIN_CAST);
+                        break;
+                    case "/loadgoalkeeper":
+                        sendTextMessage(chatId, "Хто грав в воротах?");
+                        userStates.put(chatId, UserState.ENTER_GOALKEEPER);
+                        break;
+                    case "/loadstatisticforplayer":
+                        sendTextMessage(chatId, "Для додавання статистики гравця треба ввести повідомлення в форматі - 'Перша буква імені Прізвище Матчі Голи Асисти ЖК ЧК'");
+                        userStates.put(chatId, UserState.ENTER_PLAYER_STATISTIC);
+                        break;
                     default:
                         handleUserInput(chatId, text, userState);
                         break;
@@ -249,13 +260,14 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                 break;
             case ENTER_FOOTBALLER_TO_DELETE:
                 String[] playerStats = text.split(" ");
-                if (playerStats.length >= 5) {
+                if (playerStats.length >= 6) {
                     String playerName = playerStats[0] + " " + playerStats[1];
-                    int goalsScored = Integer.parseInt(playerStats[2]);
-                    int assists = Integer.parseInt(playerStats[3]);
-                    int yellowCards = Integer.parseInt(playerStats[4]);
-                    int redCards = Integer.parseInt(playerStats[5]);
-                    footballerService.deleteLastPlayerStatistics(playerName, goalsScored, assists, yellowCards, redCards);
+                    int matches = Integer.parseInt(playerStats[2]);
+                    int goalsScored = Integer.parseInt(playerStats[3]);
+                    int assists = Integer.parseInt(playerStats[4]);
+                    int yellowCards = Integer.parseInt(playerStats[5]);
+                    int redCards = Integer.parseInt(playerStats[6]);
+                    footballerService.deletePlayerStatistics(playerName, matches, goalsScored, assists, yellowCards, redCards);
                     sendTextMessage(chatId, "Статистика гравця " + playerName + " успішно видалена.");
                 } else {
                     sendTextMessage(chatId, "Невірний формат вводу. Будь ласка, використовуйте формат 'Ім'я Прізвище Голи Асисти ЖК КК'.");
@@ -263,6 +275,41 @@ public class MyTelegramBot extends TelegramLongPollingBot {
             case ENTER_MAIN_CAST:
             footballerService.updateMatchStatistics(text);
             sendTextMessage(chatId, "Кількість зіграних матчів оновлена!");
+            case ENTER_GOALKEEPER:
+                sendTextMessage(chatId, "Будь ласка, введіть прізвище та ім'я воротаря та кількість пропущених голів у сьогоднішній грі в форматі: Прізвище Ім'я Голи");
+                String[] userInputParts = text.split(" ");
+
+                if (userInputParts.length == 3) {
+                    String lastName = userInputParts[0];
+                    String firstName = userInputParts[1];
+                    int goals = Integer.parseInt(userInputParts[2]);
+
+                    Footballer goalkeeper = footballerRepository.findByLastNameAndFirstName(lastName, firstName);
+
+                    if (goalkeeper != null) {
+                        goalkeeper.setGoals(goals);
+                        footballerRepository.save(goalkeeper);
+                        sendTextMessage(chatId, "Статистика для голкіпера " + lastName + " " + firstName + " оновлена.");
+                    } else {
+                        sendTextMessage(chatId, "Голкіпера з ім'ям " + lastName + " " + firstName + " не знайдено в базі.");
+                    }
+                } else {
+                    sendTextMessage(chatId, "Неправильний формат вводу. Введіть прізвище, ім'я та кількість голів через пробіл.");
+                }
+            case ENTER_PLAYER_STATISTIC:
+                String[] playerStat = text.split(" ");
+                if (playerStat.length >= 6) {
+                    String playerName = playerStat[0] + " " + playerStat[1];
+                    int matches = Integer.parseInt(playerStat[2]);
+                    int goalsScored = Integer.parseInt(playerStat[3]);
+                    int assists = Integer.parseInt(playerStat[4]);
+                    int yellowCards = Integer.parseInt(playerStat[5]);
+                    int redCards = Integer.parseInt(playerStat[6]);
+                    footballerService.updatePlayerStatisticsWithGames(playerName, matches, goalsScored, assists, yellowCards, redCards);
+                    sendTextMessage(chatId, "Статистика гравця " + playerName + " успішно додана.");
+                } else {
+                    sendTextMessage(chatId, "Невірний формат вводу. Будь ласка, використовуйте формат 'Ім'я Прізвище Матчі Голи Асисти ЖК КК'.");
+                }
         }
     }
 
@@ -295,7 +342,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                     String redCardPlayer = removeMinutes(formattedEvent.split("\\(")[0].trim());
                     String[] nameParts = redCardPlayer.split("\\s+");
                     String lastName = nameParts[0];
-                    String firstNameInitial = nameParts[1].substring(0, 1); // Получаем первую букву имени
+                    String firstNameInitial = nameParts[1].substring(0, 1);
 
                     String fullName = firstNameInitial + " " + lastName;
 
@@ -306,7 +353,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                     String yellowCardPlayer = removeMinutes(formattedEvent.split("\\(")[0].trim());
                     String[] nameParts = yellowCardPlayer.split("\\s+");
                     String lastName = nameParts[0];
-                    String firstNameInitial = nameParts[1].substring(0, 1); // Получаем первую букву имени
+                    String firstNameInitial = nameParts[1].substring(0, 1);
 
                     String fullName = firstNameInitial + " " + lastName;
 
@@ -320,7 +367,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                     String lastName = nameParts[0];
                     String firstNameInitial = "";
                     if (nameParts.length > 1) {
-                        firstNameInitial = nameParts[1].substring(0, 1); // Получаем первую букву имени
+                        firstNameInitial = nameParts[1].substring(0, 1);
                     }
 
                     String fullName = firstNameInitial + " " + lastName;
