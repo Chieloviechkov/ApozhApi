@@ -97,7 +97,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                         userStates.put(chatId, UserState.ENTER_MAIN_CAST);
                         break;
                     case "/loadgoalkeeper":
-                        sendTextMessage(chatId, "Хто грав в воротах?");
+                        sendTextMessage(chatId, "Будь ласка, введіть прізвище та ім'я воротаря та кількість пропущених голів у сьогоднішній грі в форматі: Прізвище Ім'я Голи");
                         userStates.put(chatId, UserState.ENTER_GOALKEEPER);
                         break;
                     case "/loadstatisticforplayer":
@@ -276,7 +276,6 @@ public class MyTelegramBot extends TelegramLongPollingBot {
             footballerService.updateMatchStatistics(text);
             sendTextMessage(chatId, "Кількість зіграних матчів оновлена!");
             case ENTER_GOALKEEPER:
-                sendTextMessage(chatId, "Будь ласка, введіть прізвище та ім'я воротаря та кількість пропущених голів у сьогоднішній грі в форматі: Прізвище Ім'я Голи");
                 String[] userInputParts = text.split(" ");
 
                 if (userInputParts.length == 3) {
