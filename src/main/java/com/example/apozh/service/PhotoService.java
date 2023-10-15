@@ -36,6 +36,7 @@ public class PhotoService {
     public List<Photo> scrapeAndSavePhotos() {
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(true);
+        System.setProperty("webdriver.gecko.driver", "C:/Users/chelo/.cache/selenium/geckodriver");
         WebDriver driver = new FirefoxDriver(options);
         String url = "https://ksl.co.ua/team/1249800/photos";
         driver.get(url);
