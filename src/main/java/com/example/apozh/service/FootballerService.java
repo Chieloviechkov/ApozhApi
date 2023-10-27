@@ -54,8 +54,10 @@ private final FootballerRepository footballerRepository;
         playerStatisticsMap.put("Віктор Грабар", Arrays.asList(99, 11, -52, 1, 1, 0, 4.7));
         playerStatisticsMap.put("Сергій Чаплинський", Arrays.asList(98, 10, -27, 1, 0, 0, 2.7));
         playerStatisticsMap.put("Олексій Лисенко", Arrays.asList(66, 6, 1, 1, 2, 0, null));
-        playerStatisticsMap.put("Максим Человечков", Arrays.asList(71, 57, -163, 3, 1, 0, 0.0));
+        playerStatisticsMap.put("Максим Чєловєчков", Arrays.asList(71, 57, -163, 3, 1, 0, 0.0));
         playerStatisticsMap.put("Ілля Ярошенко", Arrays.asList(46, 1, 0, 0, 0, 0, null));
+        playerStatisticsMap.put("Дмитро Безпалько", Arrays.asList(36, 1, 0, 0, 0, 0, null));
+
     }
 
     private void updateMissedGoalsPerGame() {
