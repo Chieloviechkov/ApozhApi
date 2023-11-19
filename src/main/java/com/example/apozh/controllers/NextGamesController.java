@@ -20,7 +20,7 @@ public class NextGamesController {
         this.nextGamesTimeService = nextGamesTimeService;
     }
 
-    @GetMapping("/hz")
+    @GetMapping("/nextgames")
     public List<NextGamesTime> getSchedule() {
        nextGamesTimeService.fetchAndSaveSchedule();
         return nextGamesTimeRepository.findAll();

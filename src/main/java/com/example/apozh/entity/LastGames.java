@@ -17,14 +17,14 @@ public class LastGames {
     @JoinColumn(name = "away_team_id")
     private Teams awayTeam;
     @Column
-    private int homeTeamGoals;
+    private Integer homeTeamGoals;
     @Column
-    private int awayTeamGoals;
+    private Integer awayTeamGoals;
 
     public LastGames() {
     }
 
-    public LastGames(Long id, Teams homeTeam, String event, Teams awayTeam, int homeTeamGoals, int awayTeamGoals) {
+    public LastGames(Long id, Teams homeTeam, String event, Teams awayTeam, Integer homeTeamGoals, Integer awayTeamGoals) {
         this.id = id;
         this.homeTeam = homeTeam;
         this.event = event;
@@ -33,12 +33,6 @@ public class LastGames {
         this.awayTeamGoals = awayTeamGoals;
     }
 
-    public String getEvent() {
-        return event;
-    }
-    public void setEvent(String event) {
-        this.event = event;
-    }
     public Long getId() {
         return id;
     }
@@ -55,6 +49,14 @@ public class LastGames {
         this.homeTeam = homeTeam;
     }
 
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
     public Teams getAwayTeam() {
         return awayTeam;
     }
@@ -63,19 +65,19 @@ public class LastGames {
         this.awayTeam = awayTeam;
     }
 
-    public int getHomeTeamGoals() {
+    public Integer getHomeTeamGoals() {
         return homeTeamGoals;
     }
 
-    public void setHomeTeamGoals(int homeTeamGoals) {
+    public void setHomeTeamGoals(Integer homeTeamGoals) {
         this.homeTeamGoals = homeTeamGoals;
     }
 
-    public int getAwayTeamGoals() {
+    public Integer getAwayTeamGoals() {
         return awayTeamGoals;
     }
 
-    public void setAwayTeamGoals(int awayTeamGoals) {
+    public void setAwayTeamGoals(Integer awayTeamGoals) {
         this.awayTeamGoals = awayTeamGoals;
     }
 

@@ -22,34 +22,34 @@ public class Footballer {
     @Column(name = "position", nullable = false)
     private String position;
 
-    @Column(name = "number", nullable = false)
-    private int number;
+    @Column(name = "number")
+    private Integer number;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "games", nullable = false)
-    private int games;
+    @Column(name = "games")
+    private Integer games;
 
     @Column(name = "goals")
-    private int goals;
+    private Integer goals;
 
     @Column(name = "assists")
-    private int assists;
+    private Integer assists;
 
     @Column(name = "yellow_cards")
-    private int yellowCards;
+    private Integer yellowCards;
 
     @Column(name = "red_cards")
-    private int redCards;
+    private Integer redCards;
 
     @Column(name = "missed_goals")
-    private double missedGoals;
+    private Double missedGoals;
 
     public Footballer() {
     }
 
-    public Footballer(Long id, String imgUrl, String firstName, String lastName, String position, int number, LocalDate dateOfBirth, int games, int goals, int assists, int yellowCards, int redCards, double missedGoals) {
+    public Footballer(Long id, String imgUrl, String firstName, String lastName, String position, Integer number, LocalDate dateOfBirth, Integer games, Integer goals, Integer assists, Integer yellowCards, Integer redCards, Double missedGoals) {
         this.id = id;
         this.imgUrl = imgUrl;
         this.firstName = firstName;
@@ -81,12 +81,12 @@ public class Footballer {
         this.imgUrl = imgUrl;
     }
 
-    public String getName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setName(String name) {
-        this.firstName = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -105,11 +105,11 @@ public class Footballer {
         this.position = position;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
@@ -121,51 +121,51 @@ public class Footballer {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getGames() {
+    public Integer getGames() {
         return games;
     }
 
-    public void setGames(int games) {
+    public void setGames(Integer games) {
         this.games = games;
     }
 
-    public int getGoals() {
+    public Integer getGoals() {
         return goals;
     }
 
-    public void setGoals(int goals) {
+    public void setGoals(Integer goals) {
         this.goals = goals;
     }
 
-    public int getAssists() {
+    public Integer getAssists() {
         return assists;
     }
 
-    public void setAssists(int assists) {
+    public void setAssists(Integer assists) {
         this.assists = assists;
     }
 
-    public int getYellowCards() {
+    public Integer getYellowCards() {
         return yellowCards;
     }
 
-    public void setYellowCards(int yellowCards) {
+    public void setYellowCards(Integer yellowCards) {
         this.yellowCards = yellowCards;
     }
 
-    public int getRedCards() {
+    public Integer getRedCards() {
         return redCards;
     }
 
-    public void setRedCards(int redCards) {
+    public void setRedCards(Integer redCards) {
         this.redCards = redCards;
     }
 
-    public double getMissedGoals() {
+    public Double getMissedGoals() {
         return missedGoals;
     }
 
-    public void setMissedGoals(double missedGoals) {
+    public void setMissedGoals(Double missedGoals) {
         this.missedGoals = missedGoals;
     }
 
@@ -174,7 +174,7 @@ public class Footballer {
         return "Footballer{" +
                 "id=" + id +
                 ", imgUrl='" + imgUrl + '\'' +
-                ", name='" + firstName + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", position='" + position + '\'' +
                 ", number=" + number +

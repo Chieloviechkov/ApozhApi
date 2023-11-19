@@ -215,7 +215,7 @@ private final FootballerRepository footballerRepository;
                 if (existingFootballer == null) {
                     Footballer footballer = new Footballer();
                     footballer.setImgUrl(photoUrl);
-                    footballer.setName(firstName);
+                    footballer.setFirstName(firstName);
                     footballer.setLastName(lastName);
                     footballer.setPosition(amplua);
 

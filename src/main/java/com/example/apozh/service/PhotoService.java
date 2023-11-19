@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,7 +28,8 @@ import java.util.List;
 public class PhotoService {
     private final PhotoRepository photoRepository;
     private String currentPageHash = "";
-
+    @Value("${photo.scraping.url}")
+    private String scrapingUrl;
     @Autowired
     public PhotoService(PhotoRepository photoRepository) {
         this.photoRepository = photoRepository;
@@ -36,9 +38,8 @@ public class PhotoService {
     public List<Photo> scrapeAndSavePhotos() {
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(true);
-        System.setProperty("webdriver.gecko.driver", "C:/Users/chelo/.cache/selenium/geckodriver");
         WebDriver driver = new FirefoxDriver(options);
-        String url = "https://ksl.co.ua/team/1249800/photos";
+        String url = scrapingUrl;
         driver.get(url);
 
         String pageContent = driver.getPageSource();

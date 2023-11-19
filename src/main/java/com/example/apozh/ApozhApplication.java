@@ -43,7 +43,7 @@ public class ApozhApplication {
         this.photoService = photoService;
         ScraperScheduler scraperScheduler = new ScraperScheduler(teamService, photoService, footballerService);
 
-        scraperScheduler.startScheduling();
+        scraperScheduler.scrapeData();
     }
     @Bean
     public MyTelegramBot myTelegramBot() {

@@ -16,29 +16,30 @@ public class Teams {
     private String logoUrl;
 
     @Column(name = "matches")
-    private int matches;
+    private Integer matches;
 
     @Column(name = "wins")
-    private int wins;
+    private Integer wins;
 
     @Column(name = "draws")
-    private int draws;
+    private Integer draws;
 
     @Column(name = "losses")
-    private int losses;
+    private Integer losses;
 
     @Column(name = "goals_scored")
-    private int goalsScored;
+    private Integer goalsScored;
 
     @Column(name = "goals_conceded")
-    private int goalsConceded;
+    private Integer goalsConceded;
 
     @Column(name = "points")
-    private int points;
+    private Integer points;
 
     public Teams() {
     }
-    public Teams(Long id, String tournament, String name, String logoUrl, int matches, int wins, int draws, int losses, int goalsScored, int goalsConceded, int points) {
+
+    public Teams(Long id, String tournament, String name, String logoUrl, Integer matches, Integer wins, Integer draws, Integer losses, Integer goalsScored, Integer goalsConceded, Integer points) {
         this.id = id;
         this.tournament = tournament;
         this.name = name;
@@ -51,6 +52,7 @@ public class Teams {
         this.goalsConceded = goalsConceded;
         this.points = points;
     }
+
     public Long getId() {
         return id;
     }
@@ -83,59 +85,59 @@ public class Teams {
         this.logoUrl = logoUrl;
     }
 
-    public int getMatches() {
+    public Integer getMatches() {
         return matches;
     }
 
-    public void setMatches(int matches) {
+    public void setMatches(Integer matches) {
         this.matches = matches;
     }
 
-    public int getWins() {
+    public Integer getWins() {
         return wins;
     }
 
-    public void setWins(int wins) {
+    public void setWins(Integer wins) {
         this.wins = wins;
     }
 
-    public int getDraws() {
+    public Integer getDraws() {
         return draws;
     }
 
-    public void setDraws(int draws) {
+    public void setDraws(Integer draws) {
         this.draws = draws;
     }
 
-    public int getLosses() {
+    public Integer getLosses() {
         return losses;
     }
 
-    public void setLosses(int losses) {
+    public void setLosses(Integer losses) {
         this.losses = losses;
     }
 
-    public int getGoalsScored() {
+    public Integer getGoalsScored() {
         return goalsScored;
     }
 
-    public void setGoalsScored(int goalsScored) {
+    public void setGoalsScored(Integer goalsScored) {
         this.goalsScored = goalsScored;
     }
 
-    public int getGoalsConceded() {
+    public Integer getGoalsConceded() {
         return goalsConceded;
     }
 
-    public void setGoalsConceded(int goalsConceded) {
+    public void setGoalsConceded(Integer goalsConceded) {
         this.goalsConceded = goalsConceded;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(Integer points) {
         this.points = points;
     }
 

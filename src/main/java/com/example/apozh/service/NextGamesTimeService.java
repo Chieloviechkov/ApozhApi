@@ -7,23 +7,27 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 @Service
 public class NextGamesTimeService {
     @Autowired
     private NextGamesTimeRepository nextGamesTimeRepository;
-    private final String URL = "https://ksl.co.ua/tournament/1024666/calendar?round_id=1043340&type=dates";
+    @Value("${tournament.calendar.url}")
+    private String tournamentCalendarUrl;
+
+    private final String URL = tournamentCalendarUrl;
 
     public void fetchAndSaveSchedule() {
         RestTemplate restTemplate = new RestTemplate();
