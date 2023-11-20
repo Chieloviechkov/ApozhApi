@@ -7,6 +7,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class ScraperScheduler {
@@ -14,6 +17,8 @@ public class ScraperScheduler {
     private final TeamService teamService;
     private final PhotoService photoService;
     private final FootballerService footballerService;
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
 
     public ScraperScheduler(TeamService teamService, PhotoService photoService, FootballerService footballerService) {
         this.teamService = teamService;
@@ -33,7 +38,7 @@ public class ScraperScheduler {
 
         allUpdates.thenRun(() -> {
             teamService.updateOrSaveTeams("https://ksl.co.ua/tournament/1024666/tables");
-            photoService.scrapeAndSavePhotos();
+            executorService.schedule(() -> photoService.scrapeAndSavePhotos(), 30, TimeUnit.SECONDS);
         });
     }
 }
