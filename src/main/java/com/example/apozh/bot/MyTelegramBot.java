@@ -290,8 +290,8 @@ public class MyTelegramBot extends TelegramLongPollingBot {
 
                     if (goalkeeper != null) {
                         goalkeeper.setGoals(goals);
-                        footballerRepository.save(goalkeeper);
                         footballerService.updateMissedGoalsPerGame();
+                        footballerRepository.save(goalkeeper);
                         sendTextMessage(chatId, "Статистика для голкіпера " + lastName + " " + firstName + " оновлена.");
                     } else {
                         sendTextMessage(chatId, "Голкіпера з ім'ям " + lastName + " " + firstName + " не знайдено в базі.");
