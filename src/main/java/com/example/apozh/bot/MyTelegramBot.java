@@ -83,7 +83,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                         break;
                     case "/loadmatch":
                         userStates.put(chatId, UserState.ENTER_MATCH_DETAILS);
-                        sendTextMessage(chatId, "Як зіграли? (Приклад - FC APOZH 3-2 FC. GOAT | 30’ Савченко І (Дума І), 40’ Савченко І - червона картка");
+                        sendTextMessage(chatId, "Як зіграли? Наша команда повинна бути першою. Приклад - FC APOZH 3-2 FC. GOAT | 30’ Савченко І (Дума І), 40’ Савченко І - червона картка");
                         break;
                     case "/deletelastgame":
                         deleteLastGameAndStatistics(chatId);
@@ -106,6 +106,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                         break;
                     default:
                         handleUserInput(chatId, text, userState);
+                        checkAndSendNotifications(chatId);
                         break;
                 }
             } else if (message.hasDocument()) {
@@ -272,9 +273,11 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                 } else {
                     sendTextMessage(chatId, "Невірний формат вводу. Будь ласка, використовуйте формат 'Ім'я Прізвище Голи Асисти ЖК КК'.");
                 }
+                break;
             case ENTER_MAIN_CAST:
             footballerService.updateMatchStatistics(text);
             sendTextMessage(chatId, "Кількість зіграних матчів оновлена!");
+            break;
             case ENTER_GOALKEEPER:
                 String[] userInputParts = text.split(" ");
 
@@ -288,6 +291,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                     if (goalkeeper != null) {
                         goalkeeper.setGoals(goals);
                         footballerRepository.save(goalkeeper);
+                        footballerService.updateMissedGoalsPerGame();
                         sendTextMessage(chatId, "Статистика для голкіпера " + lastName + " " + firstName + " оновлена.");
                     } else {
                         sendTextMessage(chatId, "Голкіпера з ім'ям " + lastName + " " + firstName + " не знайдено в базі.");
@@ -295,6 +299,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                 } else {
                     sendTextMessage(chatId, "Неправильний формат вводу. Введіть прізвище, ім'я та кількість голів через пробіл.");
                 }
+                break;
             case ENTER_PLAYER_STATISTIC:
                 String[] playerStat = text.split(" ");
                 if (playerStat.length >= 6) {
@@ -309,6 +314,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
                 } else {
                     sendTextMessage(chatId, "Невірний формат вводу. Будь ласка, використовуйте формат 'Ім'я Прізвище Матчі Голи Асисти ЖК КК'.");
                 }
+                break;
         }
     }
 

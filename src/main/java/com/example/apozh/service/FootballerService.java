@@ -61,7 +61,7 @@ private final FootballerRepository footballerRepository;
         playerStatisticsMap.put("Коваленко Рафаель", Arrays.asList(27, 1, 0, 0, 0, 0, null));
     }
 
-    private void updateMissedGoalsPerGame() {
+    public void updateMissedGoalsPerGame() {
         Locale.setDefault(Locale.ENGLISH);
         DecimalFormat df = new DecimalFormat("0.00");
         playerStatisticsMap.forEach((player, stats) -> {
