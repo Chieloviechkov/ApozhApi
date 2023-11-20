@@ -57,6 +57,7 @@ private final FootballerRepository footballerRepository;
         playerStatisticsMap.put("Максим Чєловєчков", Arrays.asList(71, 57, -163, 3, 1, 0, 0.0));
         playerStatisticsMap.put("Ілля Ярошенко", Arrays.asList(46, 1, 0, 0, 0, 0, null));
         playerStatisticsMap.put("Дмитро Безпалько", Arrays.asList(36, 1, 0, 0, 0, 0, null));
+        playerStatisticsMap.put("Пʼяткін Ерік", Arrays.asList(26, 1, 1, 0, 0, 0, null));
 
     }
 
