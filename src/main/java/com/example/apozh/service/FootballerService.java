@@ -58,7 +58,7 @@ private final FootballerRepository footballerRepository;
         playerStatisticsMap.put("Ілля Ярошенко", Arrays.asList(46, 1, 0, 0, 0, 0, null));
         playerStatisticsMap.put("Дмитро Безпалько", Arrays.asList(36, 1, 0, 0, 0, 0, null));
         playerStatisticsMap.put("Пʼяткін Ерік", Arrays.asList(26, 1, 1, 0, 0, 0, null));
-
+        playerStatisticsMap.put("Коваленко Рафаель", Arrays.asList(27, 1, 0, 0, 0, 0, null));
     }
 
     private void updateMissedGoalsPerGame() {
