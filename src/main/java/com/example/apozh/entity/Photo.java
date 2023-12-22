@@ -14,14 +14,18 @@ public class Photo {
 
     @Column(name = "image_url",nullable = false)
     private String imageUrl;
+    private Integer blockNumber;
+
     public Photo() {
     }
 
-    public Photo(Long id, String title, String imageUrl) {
+    public Photo(Long id, String title, String imageUrl, Integer blockNumber) {
         this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
+        this.blockNumber = blockNumber;
     }
+
     public Long getId() {
         return id;
     }
@@ -46,12 +50,21 @@ public class Photo {
         this.imageUrl = imageUrl;
     }
 
+    public Integer getBlockNumber() {
+        return blockNumber;
+    }
+
+    public void setBlockNumber(Integer blockNumber) {
+        this.blockNumber = blockNumber;
+    }
+
     @Override
     public String toString() {
         return "Photo{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", blockNumber=" + blockNumber +
                 '}';
     }
 }
