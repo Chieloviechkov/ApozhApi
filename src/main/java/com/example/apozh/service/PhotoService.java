@@ -105,9 +105,4 @@ public class PhotoService {
 
         return photos;
     }
-    public List<Photo> getPhotosFromDatabase() {
-        return photoRepository.findAll();
-    }
-
-
 }

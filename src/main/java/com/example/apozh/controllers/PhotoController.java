@@ -29,6 +29,7 @@ public class PhotoController {
     }
     @GetMapping("/all")
     public List<Photo> all(){
+        System.out.println(photoRepository.findAll());
        return photoRepository.findAll();
     }
 }
