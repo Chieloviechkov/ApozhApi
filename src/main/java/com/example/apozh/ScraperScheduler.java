@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class ScraperScheduler {
@@ -38,7 +37,7 @@ public class ScraperScheduler {
 
         allUpdates.thenRun(() -> {
             teamService.updateOrSaveTeams("https://ksl.co.ua/tournament/1024666/tables");
-            executorService.schedule(() -> photoService.getPhotosFromDatabase(), 30, TimeUnit.SECONDS);
+           // executorService.schedule(() -> photoService.scrapeAndSavePhotos(), 30, TimeUnit.SECONDS);
         });
     }
 }
