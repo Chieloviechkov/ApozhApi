@@ -37,8 +37,6 @@ public class PhotoService {
 
     public List<Photo> scrapeAndSavePhotos() {
         FirefoxOptions options = new FirefoxOptions();
-        options.setHeadless(true);
-        System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
         WebDriver driver = new FirefoxDriver(options);
         String url = scrapingUrl;
         driver.get(url);
@@ -106,6 +104,9 @@ public class PhotoService {
         }
 
         return photos;
+    }
+    public List<Photo> getPhotosFromDatabase() {
+        return photoRepository.findAll();
     }
 
 

@@ -38,7 +38,7 @@ public class ScraperScheduler {
 
         allUpdates.thenRun(() -> {
             teamService.updateOrSaveTeams("https://ksl.co.ua/tournament/1024666/tables");
-            executorService.schedule(() -> photoService.scrapeAndSavePhotos(), 30, TimeUnit.SECONDS);
+            executorService.schedule(() -> photoService.getPhotosFromDatabase(), 30, TimeUnit.SECONDS);
         });
     }
 }

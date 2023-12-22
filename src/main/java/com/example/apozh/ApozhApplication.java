@@ -45,6 +45,7 @@ public class ApozhApplication {
 
         scraperScheduler.scrapeData();
     }
+
     @Bean
     public MyTelegramBot myTelegramBot() {
         MyTelegramBot bot = new MyTelegramBot(newsRepository, teamRepository, achievementRepository, statisticsService,
