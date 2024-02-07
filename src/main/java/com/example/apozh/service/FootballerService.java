@@ -133,10 +133,10 @@ private final FootballerRepository footballerRepository;
                 playerStats.set(3, currentAssists + assists);
                 playerStats.set(4, currentYellowCards + yellowCards);
                 playerStats.set(5, currentRedCards + redCards);
-                updateMissedGoalsPerGame();
                 savePlayerStatisticsToDatabase(player, playerStats);
             }
         }
+        updateMissedGoalsPerGame();
     }
     public void updatePlayerStatisticsWithGames(String playerName,int matches, int goalsScored, int assists, int yellowCards, int redCards) {
         String[] parts = playerName.split(" ");
@@ -152,10 +152,10 @@ private final FootballerRepository footballerRepository;
                 playerStats.set(3, assists);
                 playerStats.set(4, yellowCards);
                 playerStats.set(5, redCards);
-                updateMissedGoalsPerGame();
                 savePlayerStatisticsToDatabase(player, playerStats);
             }
         }
+        updateMissedGoalsPerGame();
     }
 
     private void savePlayerStatisticsToDatabase(String playerName, List<Number> playerStats) {
@@ -170,7 +170,7 @@ private final FootballerRepository footballerRepository;
             footballer.setAssists(playerStats.get(3).intValue());
             footballer.setYellowCards(playerStats.get(4).intValue());
             footballer.setRedCards(playerStats.get(5).intValue());
-            updateMissedGoalsPerGame();
+
             footballerRepository.save(footballer);
             System.out.println("Статистика для футболиста " + playerName + " успешно сохранена в базе данных.");
         } else {
